@@ -16,6 +16,16 @@ We compiled some feedback on potential improvements for things ranging from spec
 		- `-NetworkName` on `Set-NetworkAdapter`
 		- `-Name` on `Get-VIRole`, `Get-VIPermission`
 		- others:  example parameters for which argument completion is useful and that appear in several cmdlets:  `-Location`, `-Datastore`, `-VM`, `-VMHost`, `-Role`, `-Privilege`, `-Tag`, `-Template`
+	- examples of where this type of behavior is already in place in other, non-VMware PowerShell modules:
+		- `Get-Process -Name <tab>` -- this will tab through the names of the currently running processes on the given machine, after determining those process names at <tab>-press time
+		- `Get-Service -DisplayName <tab>` -- this will tab through the display names of the services registered on the given machine, after determining those service display names registered at <tab>-press time
+		- `<most cmdlets with -Path param> -Path <tab>` -- tabs through the filesystem values in the given location (in current working directory in this case)
+		- More examples that get, dynamically, the current values that correspond to the given cmdlet noun and parameter combination:
+			- `Get-Alias -Definition <tab>`
+			- `Get-Variable -Name r<tab>`
+			- `Get-EventLog -LogName <tab>`
+			- `Get-Command -Module VMwar<tab>`
+			- ..et cetera
 
 ### Thoughts on speed (or slowness) of (what might cause, ways to improve, if any, by environment adjustments):
 
