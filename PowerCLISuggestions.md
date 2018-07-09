@@ -31,8 +31,16 @@ We compiled some feedback on potential improvements for things ranging from spec
 
 - `Get-Stat` can be pretty sluggish -- any work being done on speed improvements?
 - `Get-ScsiLun` -- ~25s for something like:  `Get-Datastore mydstore0 | Get-ScsiLun`
+- `Get-VMHostStorage` -- 30+ seconds per VMHost, depending on the number of SCSI LUNs
 
-### Other cmdlet improvement thoughts:
+### Other cmdlet addition/improvement thoughts:
+#### Add ability to manage VMHost VMNIC <--> vDSwitch uplink relationship
+- can currently do so via the API, of course, but being able to do so via a cmdlet will be quite useful
+- `vNugglets.VDNetworking` module now provides a cmdlet for such things:  `Set-VNVMHostNetworkAdapterVDUplink`
+
+#### Update `Open-VMConsoleWindow` to work on PowerShell Core
+- this is one of the quite useful cmdlets that a Linux colleague leverages from time to time (on PowerShell Core, of course)
+- we made a `Open-VMConsoleWindow_Expanded.ps1` parameterized script that provides this functionality for the moment
 
 #### Some useful new parameters to add:
 
@@ -86,14 +94,14 @@ We compiled some feedback on potential improvements for things ranging from spec
 	- would be useful for consumer to have more information by default on what is the VMHost to which the given VMHostStorageInfo object pertains (currently, only the `SoftwareIScsiEnabled` property is displayed in the default table view)
 	```PowerShell
 	## current state
-	Get-Cluster myCluster0 | Get-VMHost | Get-VMHostStorage -RescanAllHba
+	Get-Cluster myCluster0 | Get-VMHost | Get-VMHostStorage
 	
 	SoftwareIScsiEnabled
 	--------------------
 	False
 
 	## Proposed behavior -- more consumer friendly:  more informative default table view, displaying a couple of other existing properties of the returned object
-	Get-Cluster myCluster0 | Get-VMHost | Get-VMHostStorage -RescanAllHba
+	Get-Cluster myCluster0 | Get-VMHost | Get-VMHostStorage
 	
 	VMHost                SoftwareIScsiEnabled ScsiLun
 	------                -------------------- -------
